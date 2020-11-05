@@ -4,3 +4,5 @@ deb http://archive.ubuntu.com/ubuntu focal-updates main restricted universe mult
 
 deb http://archive.ubuntu.com/ubuntu focal-security main restricted universe multiverse
 
+deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+# deb-src [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
