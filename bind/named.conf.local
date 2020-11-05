@@ -6,3 +6,7 @@
 // organization
 //include "/etc/bind/zones.rfc1918";
 
+zone "rafael-polfliet.sb.uclllabs.be" {
+        type master;
+        file "/etc/bind/db.ns.rafael-polfliet.sb.uclllabs.be";
+};
