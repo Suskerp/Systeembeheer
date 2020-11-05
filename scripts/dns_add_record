@@ -1,0 +1,76 @@
+#!/bin/bash
+#Only when an option is given
+if [ "$1" == "-t" ];then
+	while getopts t: option; do
+       			case ${option}
+        		in
+                		t) TYPE=${OPTARG};;
+        		esac
+	done
+
+	if [ "$TYPE" = "MX" ]; then
+		#Grab zone from url
+		ZONE=$(echo $5 | awk -F . '{print $1}')
+		
+		#Filename
+                if [ "$ZONE" = "rafael-polfliet" ];then
+                        FILENAME="/etc/bind/zones/db.ns.rafael-polfliet.sb.uclllabs.be"
+                else
+                        FILENAME="/etc/bind/zones/db.ns.$ZONE.rafael-polfliet.sb.uclllabs.be"
+                fi
+		
+		#add to zone
+		echo "@		IN      MX	$3.$5." >> $FILENAME
+		echo "$3		IN      A	$4" >> $FILENAME
+	elif [ "$TYPE" = "CNAME" ]; then
+		#Grab zone from url
+                ZONE=$(echo $4 | awk -F . '{print $1}')
+		
+		#Filename
+
+		if [ "$ZONE" = "rafael-polfliet" ];then
+		 	FILENAME="/etc/bind/zones/db.ns.rafael-polfliet.sb.uclllabs.be"
+		else
+			FILENAME="/etc/bind/zones/db.ns.$ZONE.rafael-polfliet.sb.uclllabs.be"
+		fi		
+                #Add to zone
+                echo "$3		IN	CNAME	$4" >> $FILENAME
+               
+	else
+		#Grab zone from url
+                ZONE=$(echo $5 | awk -F . '{print $1}')	
+	
+		#Filename
+		if [ "$ZONE" = "rafael-polfliet" ];then
+                        FILENAME="/etc/bind/zones/db.ns.rafael-polfliet.sb.uclllabs.be"
+                else
+                        FILENAME="/etc/bind/zones/db.ns.$ZONE.rafael-polfliet.sb.uclllabs.be"
+		fi
+
+		#Add to zone
+		echo "$3		IN	A	$4" >> $FILENAME		
+	fi
+#default to a record
+else
+		#Grab zone from url
+                ZONE=$(echo $3 | awk -F . '{print $1}')
+		
+		#Filename
+		if [ "$ZONE" = "rafael-polfliet" ];then
+                        FILENAME="/etc/bind/zones/db.ns.rafael-polfliet.sb.uclllabs.be"
+                else
+                        FILENAME="/etc/bind/zones/db.ns.$ZONE.rafael-polfliet.sb.uclllabs.be"
+		fi
+
+                #Add to zone
+                echo "$1		IN	A	$2" >> "$FILENAME"
+fi
+
+#Change serial
+OLD_TEXT=$(grep "; Serial" "$FILENAME")
+SERIAL_NUMBER=$(echo $OLD_TEXT | sed 's/[^0-9]*//g')
+((SERIAL_NUBMER=SERIAL_NUMBER++))
+sed -i "s/$OLD_TEXT/            $SERIAL_NUMBER  ; Serial/g"  "$FILENAME"
+
+#LOAD IN changes
+systemctl restart bind9

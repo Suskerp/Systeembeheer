@@ -1,0 +1,46 @@
+#Don't make changes if already exist
+if [ ! -e /etc/bind/zones/db.ns.$1.rafael-polfliet.sb.uclllabs.be ]; then
+	#Make the zone file
+	touch /etc/bind/zones/db.ns.$1.rafael-polfliet.sb.uclllabs.be
+	
+	#Add config to zone file
+	echo "$TTL 360
+ @   IN SOA  ns.$1.rafael-polfliet.sb.ucclllabs.be. root.ns.rafael-polfliet.sb.uclllabs.be. (
+                1       ; Serial
+                3H      ; Refresh
+                1H      ; Retry
+                1W      ; Expire
+                3H )    ; Negative Cache TTL
+
+@               IN      NS      ns.rafael-polfliet.sb.uclllabs.be."\ >> /etc/bind/zones/db.ns.$1.rafael-polfliet.sb.uclllabs.be
+
+
+
+	#Add subzone to main zone file
+
+	echo "$1              IN      NS       ns.rafael-polfliet.sb.uclllabs.be." >> /etc/bind/zones/db.ns.rafael-polfliet.sb.uclllabs.be
+
+
+	
+	#Add subzone to named.conf.mrt-zones
+
+			echo 
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+fi
