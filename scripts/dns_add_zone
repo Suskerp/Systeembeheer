@@ -1,0 +1,40 @@
+name=$1
+
+#Don't make changes if already exist
+if [ ! -e /etc/bind/zones/db.ns.$1.rafael-polfliet.sb.uclllabs.be ]; then
+	#Make the zone file
+	touch /etc/bind/zones/db.ns.$1.rafael-polfliet.sb.uclllabs.be
+	
+	#Add config to zone file
+	echo "\$TTL 3H
+@   IN SOA  ns.$1.rafael-polfliet.sb.ucclllabs.be. root.ns.rafael-polfliet.sb.uclllabs.be. (
+                1       ; Serial
+                3H      ; Refresh
+                1H      ; Retry
+                1W      ; Expire
+                3H )    ; Negative Cache TTL
+
+@               IN      NS      ns.rafael-polfliet.sb.uclllabs.be." >> /etc/bind/zones/db.ns.$1.rafael-polfliet.sb.uclllabs.be
+
+
+	#Add subzone ns to mainzone config
+	echo "$1              IN      NS       ns.rafael-polfliet.sb.uclllabs.be." >> /etc/bind/zones/db.ns.rafael-polfliet.sb.uclllabs.be
+	
+	
+	#Add subzone config to named.conf.mrt-zones
+
+	echo "
+zone \"$1.rafael-polfliet.sb.uclllabs.be\" {
+	type master;
+	file \"/etc/bind/zones/db.ns.$1.rafael-polfliet.sb.uclllabs.be\";
+};" >> /etc/bind/named.conf.mrt-zones
+
+	
+	#increase serial
+        OLD_TEXT=$(grep "; Serial"  /etc/bind/zones/db.ns.rafael-polfliet.sb.uclllabs.be)
+        SERIAL_NUMBER=$(echo $OLD_TEXT | sed 's/[^0-9]*//g')                                                           >        echo $SERIAL_NUMBER
+        ((SERIAL_NUBMER=SERIAL_NUMBER++))
+        sed -i "s/$OLD_TEXT/		$SERIAL_NUMBER	; Serial/g" /etc/bind/zones/db.ns.rafael-polfliet.sb.uclllabs.be	
+	#Load in new config
+	systemctl restart bind9
+fi

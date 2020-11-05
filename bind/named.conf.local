@@ -6,7 +6,9 @@
 // organization
 //include "/etc/bind/zones.rfc1918";
 
+include "/etc/bind/named.conf.mrt-zones";
+
 zone "rafael-polfliet.sb.uclllabs.be" {
         type master;
-        file "/etc/bind/db.ns.rafael-polfliet.sb.uclllabs.be";
+        file "/etc/bind/zones/db.ns.rafael-polfliet.sb.uclllabs.be";
 };
