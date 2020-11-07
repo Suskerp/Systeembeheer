@@ -1,6 +1,6 @@
 $TTL 3H
 @   IN SOA ns.rafael-polfliet.sb.uccllabs.be. root.ns.rafael-polfliet.sb.uclllabs.be. (
-		44	; Seriald
+		45	; Seriald
                 3H      ; Refresh
                 1H      ; Retry
                 1W      ; Expire
@@ -14,6 +14,7 @@ $TTL 3H
 ;Aliasses
 ns           IN   A      193.191.177.196
 www          IN   A      193.191.177.196
+www1	     IN   A	 193.191.177.196
 test         IN   A      193.191.177.254
 @	     IN   A      193.191.177.196
 
