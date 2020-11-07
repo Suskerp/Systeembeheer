@@ -1,6 +1,6 @@
 $TTL 3H
 @   IN SOA ns.rafael-polfliet.sb.uccllabs.be. root.ns.rafael-polfliet.sb.uclllabs.be. (
-		50	; Serial
+		53	; Serial
                 3H      ; Refresh
                 1H      ; Retry
                 1W      ; Expire
@@ -19,7 +19,16 @@ www2	     IN   A      193.191.177.196
 test         IN   A      193.191.177.254
 @	     IN   A      193.191.177.196
 
+;letsencrypt
+
+@ IN CAA 0 issue "letsencrypt.org"
+@ IN CAA 0 iodef "mailto:rafael.polfliet@student.ucll.be"
+
+;https
+secure		IN 	A	193.191.177.196
+supersecure	IN 	A	193.191.177.196
 
 ;mrt/script
 foobar		IN	NS	ns.rafael-polfliet.sb.uclllabs.be.
 
+subzoneusu6to		IN	NS	ns.rafael-polfliet.sb.uclllabs.be.

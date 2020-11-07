@@ -16,7 +16,7 @@ if grep -q -s "$SUBZONE[[:space:]]*IN[[:space:]]*A" /etc/bind/zones/db.ns.$DOMAI
         CustomLog \${APACHE_LOG_DIR}/$SUBZONE.$DOMAIN-acces.log combined
 </VirtualHost>" >> /etc/apache2/sites-available/generated.$SUBZONE.$DOMAIN.conf
 	
-	echo "Welcome $SUBZONE.$DOMAIN"  >> /var/www/html/generated.$SUBZONE.$DOMAIN/index.html
+	echo "welcome $SUBZONE.$DOMAIN"  >> /var/www/html/generated.$SUBZONE.$DOMAIN/index.html
 
 	a2ensite generated.$SUBZONE.$DOMAIN.conf  > /dev/null 2>&1
 
