@@ -12,3 +12,8 @@ zone "rafael-polfliet.sb.uclllabs.be" {
         type master;
         file "/etc/bind/zones/db.ns.rafael-polfliet.sb.uclllabs.be";
 };
+
+zone "luca-celea.sb.uclllabs.be"{
+    type slave;
+    masters { 193.191.177.177; };
+};
