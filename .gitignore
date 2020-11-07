@@ -1,3 +1,5 @@
 mrt/
 bind/named.conf.mrt-zones
 bind/zones/db.ns.*.rafael-polfliet.sb.uclllabs.be
+apache2/sites-available/generated.*
+apache2/sites-enabled/generated.*

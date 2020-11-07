@@ -1,6 +1,6 @@
 $TTL 3H
 @   IN SOA ns.rafael-polfliet.sb.uccllabs.be. root.ns.rafael-polfliet.sb.uclllabs.be. (
-		46	; Serial
+		47	; Seriald
                 3H      ; Refresh
                 1H      ; Retry
                 1W      ; Expire
@@ -25,3 +25,4 @@ foobar		IN	NS	ns.rafael-polfliet.sb.uclllabs.be.
 barfoo		IN	NS	ns.rafael-polfliet.sb.uclllabs.be.
 subzonesaish7		IN	NS	ns.rafael-polfliet.sb.uclllabs.be.
 subzoneusu6to		IN	NS	ns.rafael-polfliet.sb.uclllabs.be.
+test		IN	NS	ns.rafael-polfliet.sb.uclllabs.be.

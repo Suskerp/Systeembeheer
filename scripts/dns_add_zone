@@ -34,7 +34,7 @@ zone \"$1.rafael-polfliet.sb.uclllabs.be\" {
         OLD_TEXT=$(grep "; Serial"  /etc/bind/zones/db.ns.rafael-polfliet.sb.uclllabs.be)  
 	SERIAL_NUMBER=$(echo $OLD_TEXT | sed 's/[^0-9]*//g')                                                             
         SERIAL_NUMBER=$((SERIAL_NUMBER+1))
-        sed -i "s/$OLD_TEXT/		$SERIAL_NUMBER	; Seriald/g" /etc/bind/zones/db.ns.rafael-polfliet.sb.uclllabs.be	
+        sed -i "s/$OLD_TEXT/		$SERIAL_NUMBER	; Serial/g" /etc/bind/zones/db.ns.rafael-polfliet.sb.uclllabs.be	
 	#Load in new config
 	systemctl restart bind9
 fi

@@ -1,0 +1,27 @@
+#!/bin/bash
+
+SUBZONE=$(echo $1 | awk -F . '{print $1}')
+DOMAIN=$(echo $1 | awk -F . '{print $2}')
+
+if grep -q -s "$SUBZONE[[:space:]]*IN[[:space:]]*A" /etc/bind/zones/db.ns.$DOMAIN.rafael-polfliet.sb.uclllabs.be; then
+	
+	mkdir /var/www/html/generated.$SUBZONE.$DOMAIN
+	
+	echo "<VirtualHost *:80>
+        ServerName $1
+        DocumentRoot /var/www/html/generated.$SUBZONE.$DOMAIN
+
+        LogLevel info
+        ErrorLog \${APACHE_LOG_DIR}/$SUBZONE.$DOMAIN-error.log
+        CustomLog \${APACHE_LOG_DIR}/$SUBZONE.$DOMAIN-acces.log combined
+</VirtualHost>" >> /etc/apache2/sites-available/generated.$SUBZONE.$DOMAIN.conf
+	
+	echo "Welcome $SUBZONE.$DOMAIN"  >> /var/www/html/generated.$SUBZONE.$DOMAIN/index.html
+
+	a2ensite generated.$SUBZONE.$DOMAIN.conf  > /dev/null 2>&1
+
+	systemctl reload apache2
+else
+	echo "Subzone doesn't exist or no A records available"
+fi
+
