@@ -1,0 +1,11 @@
+# interfaces(5) file used by ifup(8) and ifdown(8)
+# Include files from /etc/network/interfaces.d:
+source-directory /etc/network/interfaces.d
+
+auto eth0
+iface eth0 inet6 static
+ address 2001:6a8:2880:a077::c4
+ netmask 64
+ gateway 2001:6a8:2880:a077::1
+
+
