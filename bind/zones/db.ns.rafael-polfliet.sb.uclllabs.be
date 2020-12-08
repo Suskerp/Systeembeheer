@@ -1,6 +1,6 @@
 $TTL 3H
 @   IN SOA ns.rafael-polfliet.sb.uccllabs.be. root.ns.rafael-polfliet.sb.uclllabs.be. (
-		58	; Serial
+		59	; Serial
                 3H      ; Refresh
                 1H      ; Retry
                 1W      ; Expire
@@ -20,6 +20,9 @@ test         IN   A      193.191.177.254
 @	     IN   A      193.191.177.196
 mx	     IN	  A	 193.191.177.196
 @	     IN	  MX 	5  mx.rafael-polfliet.sb.uclllabs.be.
+ns 	     IN   AAAA	 2001:6a8:2880:a077::c4
+@	     IN   AAAA   2001:6a8:2880:a077::c4
+
 
 ;letsencrypt
 
